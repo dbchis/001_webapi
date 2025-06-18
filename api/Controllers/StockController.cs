@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using _001_webapi.Data;
+using _001_webapi.Mappers;
 using Microsoft.AspNetCore.Mvc;
 
 namespace _001_webapi.Controllers
@@ -19,7 +20,7 @@ namespace _001_webapi.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            var stock = _context.Stocks.ToList();
+            var stock = _context.Stocks.ToList().Select(s=>s.ToStockDto());
             return Ok(stock);
         }
         [HttpGet("{id}")]
