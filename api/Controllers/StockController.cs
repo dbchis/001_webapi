@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using _001_webapi.Data;
+using _001_webapi.Dtos.Stock;
 using _001_webapi.Mappers;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,7 +21,7 @@ namespace _001_webapi.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            var stock = _context.Stocks.ToList().Select(s=>s.ToStockDto());
+            var stock = _context.Stocks.ToList().Select(s => s.ToStockDto());
             return Ok(stock);
         }
         [HttpGet("{id}")]
@@ -33,5 +34,17 @@ namespace _001_webapi.Controllers
             }
             return Ok(stock);
         }
+        
+        [HttpPost]
+        public IActionResult Create([FromBody] CreateStockRequestDto stockDto)
+        {
+            var stockModel = stockDto.ToStockFromCreateDTO();
+
+            _context.Stocks.Add(stockModel);
+            _context.SaveChanges();
+
+            return CreatedAtAction(nameof(GetById), new { id = stockModel.Id }, stockModel.ToStockDto());
+        }
+
     }
 }
