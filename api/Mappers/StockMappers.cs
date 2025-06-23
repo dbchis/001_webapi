@@ -16,10 +16,10 @@ namespace _001_webapi.Mappers
                 Id = stockModel.Id,
                 Symbol = stockModel.Symbol,
                 CompanyName = stockModel.CompanyName,
-                // Purchase = stockModel.Purchase,
-                // LastDiv = stockModel.LastDiv,
-                // Industry = stockModel.Industry,
-                // MarketCap = stockModel.MarketCap
+                Purchase = stockModel.Purchase,
+                LastDiv = stockModel.LastDiv,
+                Industry = stockModel.Industry,
+                MarketCap = stockModel.MarketCap
             };
         }
         public static Stock ToStockFromCreateDTO(this CreateStockRequestDto stockDto)
